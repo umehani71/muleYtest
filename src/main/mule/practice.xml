@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="fd20ebc6-b832-4eeb-a3ad-1ee09352b7b3" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="fcf59521-0792-41a1-bfe8-986ffbe74be2" >
+		<salesforce:config-with-oauth-connection display="POPUP" >
+			<salesforce:oauth-authorization-code consumerKey="3MVG98hdjyNB1QTmgfVLTsIi0gKSj2rwG8_yJmP9IjgYX5zJ4sjCCMonp1LvNVEZCXt89DJT6zaclZuYQUy09" consumerSecret="FEF4DC933D6D89B5E17971A1118E2372122E988BE77648E03A5CF58408FE1BC0" authorizationUrl="https://na110.salesforce.com/services/oauth2/authorize" accessTokenUrl="https://na110.salesforce.com/services/oauth2/token" />
+			<salesforce:oauth-callback-config listenerConfig="HTTP_Listener_config" callbackPath="/oauth2callback" authorizePath="/authorize" externalCallbackUrl="http://localhost:8081/oauth2callback" />
+		</salesforce:config-with-oauth-connection>
+	</salesforce:sfdc-config>
+	<flow name="practiceFlow" doc:id="f76524f0-f3a1-4eb3-bc34-39ab39ae306b" >
+		<http:listener doc:name="Listener" doc:id="af126492-0671-4fdb-a800-5b45c0b63c14" config-ref="HTTP_Listener_config" path="/practice"/>
+		<ee:transform doc:name="Transform Message" doc:id="ce7173c5-1b3e-448a-b7ce-930614bf4a6e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"Practice": "kjsas"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="account" format="json">
+      <types:shape format="weave" example="test.json"><![CDATA[%dw 2.0
+
+type account = Array<{|  name: String,   billingAddress: String,   billingCity: String,   billingCountry: String,   billingPostalCode: Number {"typeId": "int"},   billingState: String|}> {"example": "[{\\\"name\\\":\\\"Mars\\\",\\\"billingAddress\\\":\\\"Road rr \\\",\\\"billingCity\\\":\\\"London\\\",\\\"billingCountry\\\":\\\"United Kingdom\\\",\\\"billingPostalCode\\\":97979,\\\"billingState\\\":\\\"LV\\\"},{\\\"name\\\":\\\"Han\\\",\\\"billingAddress\\\":\\\"Road rr \\\",\\\"billingCity\\\":\\\"London\\\",\\\"billingCountry\\\":\\\"United Kingdom\\\",\\\"billingPostalCode\\\":97979,\\\"billingState\\\":\\\"LV\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+</types:mule>
